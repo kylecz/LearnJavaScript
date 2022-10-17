@@ -1,0 +1,45 @@
+SYNTAX, VARIABLES, DATA TYPES, FUNCTIONS
+
+- (video 18. - 'Adding JS to the Website') describes importing the app.js and vendor.js files into the index.html files
+
+2a VARIABLES, CONSTANTS, OPERATORS, DATA TYPES
+    - VARIABLE is a data container/storage where the value can change
+    - we must initialize (set value) and declare our variables
+        // 'let' keyword to introduce variable
+        let userName = 'Kyle';
+        // value can change; re-assign; 'let' is not required
+        userName = 'John';
+
+    - CONSTANT is a data container/storage where the value CANNOT change
+        // 'const' keyword to introduce constant
+        const totalUsers = 15;
+    - *use constants as often as possible to be clear about your intent
+
+    - naming convention
+        best practice: camelCase
+        JS is case-sensitive
+        allowed:
+            letters, numbers
+            allowed to start with: $, _
+        not allowed:
+            starting with a number
+            special characters(-)
+            using keywords (e.g. let let)
+            bad practice: _ within the name
+    
+    - OPERATORS
+        allow us to manipulate values
+
+    - DATA TYPES   
+        numbers - positive, negative, floats, integers
+        strings - text using "", '', or ``
+            string concatentation - use different data types together
+            `` allows us to add variables within the scope of the ``s; called 'template literal'
+            multi-line - add line breaks using '\n'
+                *'\' escapes any text that comes after the \
+            
+
+    
+
+             
+

@@ -1,0 +1,71 @@
+INTRODUCTION
+
+What is JavaScript?
+	- JS is a 'dynamic', 'weakly typed' programming language 'compiled at runtime'
+	- It can be executed as part of a webpage in a browser or directly on any machine ('host environment')
+	- Created to 'make webpages more dynamic' (e.g. change content on a page inside the browser)
+	- Originally, called LiveScript but renamed due to the popularity of Java, at the time
+		*JS is indp of Java
+		
+How do webpages work? (JS01, JS02)
+	- User visits/interacts with browser through your client/machine
+		Initial visit - request is sent to the server; a computer where the webpage sits, where the HTML file is posted
+			Server loads webpage/HTML and sends it back to your browser (response)
+	- What if the user clicks on a form on that webpage?
+		Triggers a new request (sent from client to server)
+			Server processes request, maybe store some data in a DB, and then responds back with a new HTML file webpage
+	- JS makes the client/browser experience more "reactive"
+		E.g. instead of sending a second response, the originally loaded page could, instead, dynamically change to meet the needs of the user
+
+How is JS executed? (JS03)
+	- Write code to have some effect on a webpage (in this case, the browser would run our code)
+		Built into the browser is the JS Engine (called V8 in Chrome and SpiderMonkey in Firefox)
+			Engine will parse, read, and understand your code > compile it to machine code > executes machine code, driving some effect on the webpage
+				*this happens on a 'single thread'
+					
+Dynamic? Weakly Typed?
+	- JS = (dynamic, interpreted) + weakly typed
+	- Dynamic:
+		- Not pre-compiled, instead parsed and compiled "on the fly" (e.g. in the browser)
+		- Code evaluated and executed at runtime
+		- Code can change at runtime (e.g. type of a variable)
+	- Weakly Typed:
+		- Data types are assumed automatically
+		- You don’t define that some variable has to hold a certain value (e.g. in other languages, you need to define the data type in advance)
+
+Executes in a Hosted Environment
+	- Meaning that JS can be executed in different environments (e.g. browser-side, server-side, etc.)
+	- Browser-side:
+		- JS's origin
+		- JS invented to create more dynamic websites by executing in the browser
+		- JS can manipulate HTML code, CSS, send background HTTP requests, etc.
+		- JS cant access local file system, interact with OS, etc.
+
+	- Server-side
+		- Google's V8 JS engine was extracted to run JS anywhere (not just in the browser); this tool is called 'Node.js'
+		- Node.js can be executed on any machine and is therefore often used to build web backends
+		- Node.js can access the local file system, interact with OS, etc.
+		- Node.js cant manipulate HTML or CSS
+
+	- Syntax is the same for both env's
+
+JS vs Java
+	- Completely independent; syntax and principles
+	- Java doesn’t run in browser
+	- Java object-oriented, strongly typed
+
+History of JS
+	- 1995 Netscape introduced 'LiveScript' which was the original name of JS
+	- 1996 Microsoft introduced its own version for IE
+	- Late 1996, JS submitted to ECMA (European Computer Manu Association) to start standardization across all browsers (1997 - 2005)
+	- 2006 - 2011 Microsoft joined efforts to help develop
+	
+	- ECMA runs a language called ECMAScript
+		- ECMAScript is implemented by browser vendors as JS
+		- JS is the most famous ECMAScript implementation (others include ActionScript and Jscript)
+		- Browser vendors implement these standards into their JS engines
+		    Each browser comes with its own JS engine that also defines which features are supported
+		- ECMAScript is under active development, therefore so is JS
+
+How do our scripts get executed?  
+	- Code is parsed, compiled, and executed from top to bottom
