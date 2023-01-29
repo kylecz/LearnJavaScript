@@ -1,16 +1,16 @@
 SYNTAX, VARIABLES, DATA TYPES, FUNCTIONS
 
-- (video 18. - 'Adding JS to the Website') describes importing the app.js and vendor.js files into the index.html files
+- (video 18. - 'Adding JS to the Website') describes importing (src=) the app.js and vendor.js files into the index.html file
 
 2a VARIABLES, CONSTANTS, OPERATORS, DATA TYPES
-    - VARIABLE is a data container/storage where the value can change
+    - Variable - data container/storage where the value can change
     - we must initialize (set value) and declare our variables
         // 'let' keyword to introduce variable
         let userName = 'Kyle';
         // value can change; re-assign; 'let' is not required
         userName = 'John';
 
-    - CONSTANT is a data container/storage where the value CANNOT change
+    - Constant - data container/storage where the value CANNOT change
         // 'const' keyword to introduce constant
         const totalUsers = 15;
     - *use constants as often as possible to be clear about your intent
@@ -37,8 +37,29 @@ SYNTAX, VARIABLES, DATA TYPES, FUNCTIONS
             `` allows us to add variables within the scope of the ``s; called 'template literal'
             multi-line - add line breaks using '\n'
                 *'\' escapes any text that comes after the \
-            
-
+    
+2b FUNCTIONS
+    - 'code on demand'
+    - define code that can be executed at a late point in time
+            // 'define' function; includes optional paramters, a body {}, and it can return something
+            function greetUser(name) {
+                alert('hi ' + name);
+            }
+            // 'call' function; use function name in addition to paramters (if there are any)
+            greetUser('Kyle');
+    - call functions as many times as required
+    - every function runs independent from other executions
+    - the order matter for variables and constants but not for functions
+        if we initialize/declare a variable after we try to use it, this will result in an error
+        however, we can define a function at the beginning or at the end of our code
+            if we call a function, that is defined later on in our code, JS will locate the function to execute the code   
+    - *when we create 'statements' (that use '{}'), we do not require the use of a semi-colin
+    - global vs local scope
+        varaibles defined outside of our functions are defined at the 'global' scope
+        within our function, we can technically access global variables BUT this is not a good practice
+        variables defined within the function body are ONLY available within the function itself
+     
+    
     
 
              
