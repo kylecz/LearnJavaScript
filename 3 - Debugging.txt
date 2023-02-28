@@ -1,0 +1,34 @@
+Debug code
+    Actually read and utilize the error message
+    Use console.log() to gain insight into code flow
+
+Types
+    1. Web page doesnt work at all, error message
+        IDE yells at us telling us of this error
+        if the IDE does not surface an error but your web page isnt working propertly, then refer to the Console tab, within the Developer Tools, to view the error
+            we can even see the source code, with the error highlighted, within Developer Tools!
+
+    2. Web page does work but not as expected, no error message
+        Use console.log() to better understand your code flow
+
+Developer Tools, using 'breakpoint'
+    Breakpoint - within the browser (Sources tab), we can break our code, at a certain point in time, by selecting a given line, to ultimately examine it
+        the breakpoint executes all code UP TO the breakpoint, not including the breakpoint line of code
+        breakpoint debugger options:
+            'Resume script execution'
+            'Step over next function call' - move to next line
+            'Step into next function call' - go to function, part of the breakpoint line
+            'Step out of current function'
+            'Step' - combines 'Step over' and 'Step into'
+
+            'Scope' - local and global variables listed
+
+            'Call stack' - lists all functions that have been called
+    Conditional Breakpoint - you can create a condition that pauses (breakpoint) your code, solely based on your condition
+    Event Listener Breakpoints - pause (breakpoint) code not based on a given line or condition, but based on an 'event' (e.g. Mouse - click)
+
+    Note - you can make changes to your code (Sources tab) to test/debug and this wont change your actual original code
+
+VSCode 'JavaScript Debugger' extension
+    we can set breakpoints within VSCode and use same functionalities we saw within browser
+    'Debug Console' also opens, within the terminal, that outputs logs and allows you to evaluate expressions at debugging runtime

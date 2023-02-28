@@ -2,20 +2,22 @@ SYNTAX, VARIABLES, DATA TYPES, FUNCTIONS
 
 - (video 18. - 'Adding JS to the Website') describes importing (src=) the app.js and vendor.js files into the index.html file
 
-2a VARIABLES, CONSTANTS, OPERATORS, DATA TYPES
+2a VARIABLES, CONSTANTS, OPERATORS, DATA TYPES, OTHER
     - Variable - data container/storage where the value can change
-    - we must initialize (set value) and declare our variables
-        // 'let' keyword to introduce variable
-        let userName = 'Kyle';
-        // value can change; re-assign; 'let' is not required
-        userName = 'John';
+        initialize (set value) and declare our variables
+            // 'let' keyword to introduce variable
+            let userName = 'Kyle';
+            // value can change; re-assign; 'let' is not required
+            userName = 'John';
+            *we only need to declare our variables once
 
-    - Constant - data container/storage where the value CANNOT change
-        // 'const' keyword to introduce constant
+    - Constant - data container/storage where the value cannot change
         const totalUsers = 15;
-    - *use constants as often as possible to be clear about your intent
+    
+        *use constants as often as possible to be clear about your intent
+        *we only need to declare our constants once
 
-    - naming convention
+    - Naming convention
         best practice: camelCase
         JS is case-sensitive
         allowed:
@@ -27,21 +29,89 @@ SYNTAX, VARIABLES, DATA TYPES, FUNCTIONS
             using keywords (e.g. let let)
             bad practice: _ within the name
     
-    - OPERATORS
-        allow us to manipulate values
+    - Operators - enables us to manipulate values
+        *data on the right-side of the '=' operator is evaluated first
+        operators that simplify code
+            1/ 
+                currentResult = currentResult + enteredNumber;
+                OR
+                currentResult += enteredNumber; 
+            2/ increment, decrement operators
+                currentResult = currentResult + 1;
+                OR
+                currentResult++;
+                    *not available for multiplication or division
+            3/ *increment, decrement operators
+                ++currentResult - outputs result after change
+                currentResult++ - outputs result before change
 
-    - DATA TYPES   
-        numbers - positive, negative, floats, integers
+    - Data types   
+        numbers - integers, floats 
         strings - text using "", '', or ``
             string concatentation - use different data types together
-            `` allows us to add variables within the scope of the ``s; called 'template literal'
-            multi-line - add line breaks using '\n'
-                *'\' escapes any text that comes after the \
-    
+            template literal - `` allows us to add variables within this scope using these characters: ${}
+                *anything passed through the {} will be converted to string
+        booleans - true, false
+        objects - allows you to group and organize related data; key:value pairs
+            {name: "Max", age:31}
+        arrays - store list of data
+            [1, 3, 5]
+        null, undefined, NaN
+            undefined (value and data type) - default values uninitialized varaibles have
+                e.g. when we do not define variable (using '='), when we try to access index where no element has been created yet, etc.
+                    let userName;
+            null (value and data type) - never an assumed default value; you can assign this value to a variable; great if you want to "reset" a variable
+                userName = null;
+            NaN (value, NOT a data type) - 'not-a-number'; this is technically a number, therefore it can be used in calculations
+                e.g. if you perform an operation with a number and a string, you will get a NaN number
+                    3 * 'hi'
+
+        multi-line - add line breaks using '\n'
+            *'\' escapes any text that comes after the '\'
+            *to see the line break (\n) on the webpage, go to Developer tools > add 'white-space: pre;' under 'element.style', under 'Styles'
+        convert data types
+            Ex. userInput will always output a string. What if we want this to be a number?
+                // output integer
+                parseInt(userInput.value)
+                // output float
+                parseFloat(userInput.value)
+                // *short form is +userInput.value
+            Convert number to string: 
+                currentResult.toString()
+        'typeof' - key word allows you to evaluate the type of variable at runtime
+            typeof userName
+
+
+    - Comments
+        // comment
+        /* 
+        block comment
+        */
+
+    - 'defer' and 'async'
+        We import  our 'scripts' (vendor.js, app.js) into our html file at the very bottom of the body tag because the scripts rely on the page being rendered first
+            Now this is actually still not entirely optimal
+            
+        (Dev tools) 'Performance' tab - idea of what browser does when rendering page; understanding how scripts are loaded, parsed, and executed
+            process: downloads Index.html file, receives data, parses html code, requests css code (app.css), scripts get requested, scripts get executed (in yellow)  
+                *scripts requested a little later because they are at the bottom of html file
+                were done parsing at Xms and the first script is loaded at Yms .. this may seem insignificant, but what if we had more code
+                    we want the scripts to be loaded sooner
+                        *we dont want them to be executed sooner, since they rely on the page being rendered first .. we just want them loaded
+                            *if we move scripts up in html code, this tells browser to download them sooner but results in an error since the buttons havent rendered yet
+        solution: 'defer'
+            adding 'defer' in html code will tell browser to download the scripts right away, but to only execute scripts once everything has been parsed
+                *'defer' guarantees scripts are loaded and executed in the order that they come in
+        'async'
+            adding 'async' in html code will tell browser to download AND execute scripts right away, and then parses the rest of the html code, only after scripts have executed
+                *note - there is no garantee in the order of script execution; e.g. app.js could fully execute before vendor.js
+            
+            *in-line scripts (code written within html file) ignore 'defer' and 'async' .. since there are no external files being used
+
 2b FUNCTIONS
-    - 'code on demand'
-    - define code that can be executed at a late point in time
-            // 'define' function; includes optional paramters, a body {}, and it can return something
+    - Function - code-on-demand
+    - define isolated code that can be executed at a late point in time (call)
+            // define using 'function' keyword; includes optional paramters (input), a body {code to execute}, and we optionally return values using the 'return' statement
             function greetUser(name) {
                 alert('hi ' + name);
             }
@@ -49,15 +119,43 @@ SYNTAX, VARIABLES, DATA TYPES, FUNCTIONS
             greetUser('Kyle');
     - call functions as many times as required
     - every function runs independent from other executions
-    - the order matter for variables and constants but not for functions
+    - there are built-in functions, such as 'alert', that can be called any time
+    - the order of our code matters for variables and constants but not for functions
         if we initialize/declare a variable after we try to use it, this will result in an error
         however, we can define a function at the beginning or at the end of our code
             if we call a function, that is defined later on in our code, JS will locate the function to execute the code   
     - *when we create 'statements' (that use '{}'), we do not require the use of a semi-colin
-    - global vs local scope
+    - global vs local (block) scope
         varaibles defined outside of our functions are defined at the 'global' scope
         within our function, we can technically access global variables BUT this is not a good practice
-        variables defined within the function body are ONLY available within the function itself
+        variables defined within the function body ('local' scope) are ONLY available within the function itself
+
+        can we define the SAME named variable globally and then locally (within a function)? Yes, this is called 'shadow variables'
+            since local variables are defined within their own scope, both local and global variables can co-exist
+            defining local variables is called 'shadowing'
+            so when we call that function, the locally defined variable will be referred, not the global
+                *if there is no locally defined variable, then the globally defined one will be referred
+    - 'return' statement
+        returns some value (that can be stored for example)
+        code defined after the return statement is NOT executed
+        you may want to end your function in 'return;' to exit the function execution
+            this makes sense for 'if' statements for example
+    - 'addEventListener' is a function built-into the browser, takes 2 arguments; first is the event it will listen on (string), second is a function
+    - 'indirect' vs 'direct' function execution
+        add vs add()
+        indirect - when you dont want to execute the function right away
+        e.g. execute function when some event occurs (click)
+    
+    - 'push' is a built-in array function that adds new element to array
+        logEntries.push(logEntry);
+    
+    - 'console.log' outputs some value to developer console log
+        console.log(logEntries);
+        // output specific value in array, such as the first element (aka index zero)
+        console.log(logEntries[0]);
+
+        // ouput specific value (called 'properties') in object, by using the '.' notation
+        console.log(logEntry.operation);
      
     
     

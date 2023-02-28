@@ -6,6 +6,9 @@ What is JavaScript?
 	- Created to 'make webpages more dynamic' (e.g. change content on a page inside the browser)
 	- Originally, called LiveScript but renamed due to the popularity of Java, at the time
 		*JS is indp of Java
+	- MDN
+    	unofficial JS documentation
+        	https://developer.mozilla.org/en-US/docs/Web/JavaScript
 		
 How do webpages work? (JS01, JS02)
 	- User visits/interacts with browser through your client/machine
@@ -67,5 +70,5 @@ History of JS
 		    Each browser comes with its own JS engine that also defines which features are supported
 		- ECMAScript is under active development, therefore so is JS
 
-How do our scripts get executed?  
-	- Code is parsed, compiled, and executed from top to bottom
+- how code gets executed?
+    code is parsed, compiled, and executed from top to bottom
