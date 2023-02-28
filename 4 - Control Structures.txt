@@ -1,0 +1,34 @@
+CONDITIONAL STATEMENTS
+    'If' statements - define condition that if met, will run codeX, or, if not met, will run codeY
+        Conditions are based on the 'boolean' data type
+            Boolean - true or false
+            Boolean operators - returns true or false
+                '==' equality - compares 2 values and returns true or false
+                    e.g. 2 == 2, yeilds true
+                    *'=' assigns a value
+                '!=' inequality - compares 2 values and returns true or false
+                    e.g. 4 != 2, yeilds true
+                '===', '!==' - checks for value AND type (in)equality
+                    e.g. 2 == 2, yeild true    
+                            2 == "2", also yeilds true         
+                            2 === 2, yeilds true
+                            2 === "2", yeilds false
+                    *suggested we use === over ==
+                '>', '<' - checks for values being greater / smaller
+                    e.g. 4 > 2, yields true
+                    e.g. "c" > "a", yields true 
+                        *strings can also be compared
+                '>=', '<='
+                '!' - checks if NOT true
+        If statement:
+            if (condition) {
+                // executed code that checks if condition outputs true or false 
+            }
+
+
+
+LOOPS
+
+
+
+ERROR HANDLING
