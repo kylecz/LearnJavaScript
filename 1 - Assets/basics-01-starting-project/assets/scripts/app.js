@@ -1,9 +1,7 @@
+//// CODE FOR '4 - CONTROL STRUCTURES'
 
-// initialize constant
 const defaultResult = 0;
-// declare variable
 let currentResult = defaultResult;
-// declare empty array
 let logEntries = [];
 
 
@@ -30,37 +28,57 @@ function writeToLog(operationIdentifier, prevResult, operationNumber, newResult)
     console.log(logEntries);
 }
 
-// define function that would add two numbers
-function add() {
+function calculateResult(calculationType) {
     const enteredNumber = getUserNumberInput(); 
+
+    // include IF statement that if the calculationType is not one we support, then there's no use in continuing .. so 'return' so no further code executes
+    if (
+        calculationType !== 'ADD' && 
+        calculationType !== 'SUBTRACT' && 
+        calculationType !== 'MULTIPLY' && 
+        calculationType !== 'DIVIDE' ||
+        !enteredNumber  // if the value entered is not true (e.g. 0), then the if-statment yields true and 'return' is executed
+        ) {
+        return;
+    }
+    
+    
     const initialResult = currentResult;  
-    //console.log('Input', enteredNumber, currentResult)  //console.log to debug and better understand code flow
-    currentResult += enteredNumber; 
-    createAndWriteOutput('+', initialResult, enteredNumber);
-    writeToLog('ADD', initialResult, enteredNumber, currentResult);
+    let mathOperator;
+    if (calculationType === 'ADD') {
+        currentResult += enteredNumber; 
+        mathOperator = '+';
+    } else if (calculationType === 'SUBTRACT') {
+        currentResult -= enteredNumber;
+        mathOperator = '-';
+    } else if (calculationType === 'MULTIPLY') {
+        currentResult *= enteredNumber;
+        mathOperator = '*';
+    } else if (calculationType === 'DIVIDE') {
+        currentResult /= enteredNumber;
+        mathOperator = '/';
+    }
+
+    
+    createAndWriteOutput(mathOperator, initialResult, enteredNumber);
+    writeToLog(calculationType, initialResult, enteredNumber, currentResult);
 }
-// add functions for all buttons
+
+
+
+function add() {
+    calculateResult('ADD');
+}
 function subtract() {
-    const enteredNumber = getUserNumberInput();   
-    const initialResult = currentResult;  
-    currentResult -= enteredNumber;
-    createAndWriteOutput('-', initialResult, enteredNumber);
-    writeToLog('SUBTRACT', initialResult, enteredNumber, currentResult);
+    calculateResult('SUBTRACT');
 }
 function multiply() {
-    const enteredNumber = getUserNumberInput();   
-    const initialResult = currentResult;  
-    currentResult *= enteredNumber;
-    createAndWriteOutput('*', initialResult, enteredNumber);
-    writeToLog('MULTIPLY', initialResult, enteredNumber, currentResult);
+    calculateResult('MULTIPLY');
 }
 function divide() {
-    const enteredNumber = getUserNumberInput();   
-    const initialResult = currentResult;  
-    currentResult /= enteredNumber;
-    createAndWriteOutput('/', initialResult, enteredNumber);
-    writeToLog('DIVIDE', initialResult, enteredNumber, currentResult);
+    calculateResult('DIVIDE');
 }
+
 // 'addBtn' (found in vendor.js) is a pointer to the actual add button on the html page
 addBtn.addEventListener('click', add);
 subtractBtn.addEventListener('click', subtract);

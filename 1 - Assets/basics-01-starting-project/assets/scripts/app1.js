@@ -1,3 +1,4 @@
+//// CODE FOR '2 - BASICS'
 
 // initialize constant
 const defaultResult = 0;

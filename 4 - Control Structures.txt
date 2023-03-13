@@ -1,29 +1,81 @@
 CONDITIONAL STATEMENTS
     'If' statements - define condition that if met, will run codeX, or, if not met, will run codeY
-        Conditions are based on the 'boolean' data type
-            Boolean - true or false
-            Boolean operators - returns true or false
-                '==' equality - compares 2 values and returns true or false
-                    e.g. 2 == 2, yeilds true
-                    *'=' assigns a value
-                '!=' inequality - compares 2 values and returns true or false
-                    e.g. 4 != 2, yeilds true
-                '===', '!==' - checks for value AND type (in)equality
-                    e.g. 2 == 2, yeild true    
-                            2 == "2", also yeilds true         
-                            2 === 2, yeilds true
-                            2 === "2", yeilds false
-                    *suggested we use === over ==
-                '>', '<' - checks for values being greater / smaller
-                    e.g. 4 > 2, yields true
-                    e.g. "c" > "a", yields true 
-                        *strings can also be compared
-                '>=', '<='
-                '!' - checks if NOT true
         If statement:
             if (condition) {
-                // executed code that checks if condition outputs true or false 
+                // if condition is met, then this code is executed 
+            } else { 
+                // if condition is NOT met, then this code is executed 
             }
+        Else-If statements - what if you require multiple checks?  Yes, you could have nested if statements but that will get too complicated.  Else-If solves this
+            if (condition1) {
+                // if condition1 is met, then this code is executed 
+            } else if (condition2) { 
+                // if condition2 is met, then this code is executed 
+            } else {
+                // if neither condition1 nor condition2 is met, then this code is executed
+            }
+
+        Conditions 
+            Conditions are mostly based on the 'boolean' data type
+                Boolean - true or false
+                Boolean operators - returns true or false
+                    '==' equality - compares 2 values and returns true or false
+                        e.g. 2 == 2, yeilds true
+                        *'=' assigns a value
+                    '!=' inequality - compares 2 values and returns true or false
+                        e.g. 4 != 2, yeilds true
+                    '===', '!==' - checks for value AND type (in)equality
+                        e.g. 2 == 2, yeild true    
+                                2 == "2", also yeilds true         
+                                2 === 2, yeilds true
+                                2 === "2", yeilds false
+                        *suggested we use === over ==
+                    '>', '<' - checks for values being greater / smaller
+                        e.g. 4 > 2, yields true
+                        e.g. "c" > "a", yields true 
+                            *strings can also be compared
+                    '>=', '<='
+                    '!' - checks if NOT true
+                
+            Combining conditions using the AND and OR operators
+                ex/ conditionA, conditionB, and conditionC.  We want the code to execute if conditionA and conditionB are true, or if conditionC is true
+                    conditionA && conditionB || conditionC
+            
+            'Falsy' and 'Truthy' conditions
+                JS tries to coerce values to boolean if a boolean is required!
+
+                Ex1/ 
+                        const name = 'Max';
+                        if (name === 'Max') {...}
+                        // this yields true (a boolean value)
+                    OR
+                        const name = 'Max';
+                        if (name) {...}
+                        // name is a string, not a boolean .. but this does also yield true 
+                    in this example, if-statement yields true since the variable is a non-empty string  
+                        if the string was empty, then this would yield false
+                Ex2/
+                    if we pass a variable through an if-statement, and the variable equals 0, then the if-statement yields 'false'
+                        if the variable, instead equals ANY other number (positive or negative), then the if-statement yields 'true'
+                        *0 is a special case and can come in handy when you dont want to divide by zero
+                Ex3/
+                    objects and arrarys (even empty) always yield true
+                Ex4/
+                    null, undefined, NaN always yields false
+
+    *Equality for Objects and Arrays
+        if we had 2 objects (or arrays) that contained the same values, and we then compared them using the ===/== operator, it would return a false
+            person1 = {name: 'Kyle'}
+            person2 = {name: 'Kyle'}
+            person1 == person2
+                false
+        if we do compare values within the object, then that would return true
+            person1.name == person2.name
+                true
+
+    *Operator precedence
+        https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+
 
 
 
