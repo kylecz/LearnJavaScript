@@ -1,0 +1,50 @@
+
+INTRO
+    function - declare 'code on demand'
+    when JS reads our script, it reads our entire script first, locates all function declarations, registers them, and then executes the script
+    variables/constants created within a function belongs to that function
+    functions can take parameters/arguments and they can return a value, but they dont have to
+        *parameters/arguments are used interchangeably, but there is a difference
+            parameters - variables specified between paratheses when defining a function
+                function sayHi(name) { ... }
+            arguments - concrete values you pass to a function when calling that function
+                sayHi('Max');
+    functions can be called multiple times
+
+CREATING FUNCTIONS
+    Weve learned about objects (person) and adding properties to them {name: 'Kyle'}
+    But you can also have functions within objects; called a 'method'
+    We can then use the dot notation to access the object; to access properties or to access functions
+        const person = {
+            name: 'Kyle',
+            greet: function greet() {
+                console.log('Hello there!');
+            }
+        }
+        console.log(person.name); 
+        person.greet();  
+    Ex/
+        // addEventListener is a function provided by browser
+        // addEventListener is a method on the startGameBtn object
+        // startGameBtn is an object created by JS by calling the getElementById method, that exists on the document (that gives us access to our HTML page)
+        startGameBtn.addEventListener('click', startGame);
+
+
+
+ANONYMOUS FUNCTIONS
+
+
+
+
+CALLBACK FUNCTIONS & FUNCTIONS IN FUNCTIONS
+
+
+
+
+
+DEFAULT ARGUMENTS & REST OPERATOR
+
+
+
+
+bind() & MORE
