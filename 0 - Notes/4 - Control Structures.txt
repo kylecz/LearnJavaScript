@@ -1,5 +1,6 @@
 CONDITIONAL STATEMENTS
     'If' statements - define condition that if met, will run codeX, or, if not met, will run codeY
+        *expressions yield some value while statements do not
         If statement:
             if (condition) {
                 // if condition is met, then this code is executed 
@@ -20,15 +21,15 @@ CONDITIONAL STATEMENTS
                 Boolean - true or false
                 Boolean operators - returns true or false
                     '==' equality - compares 2 values and returns true or false
-                        e.g. 2 == 2, yeilds true
+                        e.g. 2 == 2, yields true
                         *'=' assigns a value
                     '!=' inequality - compares 2 values and returns true or false
-                        e.g. 4 != 2, yeilds true
+                        e.g. 4 != 2, yields true
                     '===', '!==' - checks for value AND type (in)equality
-                        e.g. 2 == 2, yeild true    
-                                2 == "2", also yeilds true         
-                                2 === 2, yeilds true
-                                2 === "2", yeilds false
+                        e.g. 2 == 2, yield true    
+                                2 == "2", also yields true         
+                                2 === 2, yields true
+                                2 === "2", yields false
                         *suggested we use === over ==
                     '>', '<' - checks for values being greater / smaller
                         e.g. 4 > 2, yields true
@@ -36,10 +37,18 @@ CONDITIONAL STATEMENTS
                             *strings can also be compared
                     '>=', '<='
                     '!' - checks if NOT true
-                
+                                
             Combining conditions using the AND and OR operators
-                ex/ conditionA, conditionB, and conditionC.  We want the code to execute if conditionA and conditionB are true, or if conditionC is true
+                Ex/ conditionA, conditionB, and conditionC
+                    We want the code to execute if conditionA and conditionB are true, or if conditionC is true
+                    
                     conditionA && conditionB || conditionC
+                *note - AND and OR do not specifically return boolean values
+                    they can be used to compare conditions that can return boolean values
+                        Ex/
+                            if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
+                                chosenMaxLife = 100;
+                            }
             
             'Falsy' and 'Truthy' conditions
                 JS tries to coerce values to boolean if a boolean is required!
@@ -62,8 +71,54 @@ CONDITIONAL STATEMENTS
                     objects and arrarys (even empty) always yield true
                 Ex4/
                     null, undefined, NaN always yields false
+                *Ex5/ tricks with the OR operator
+                    const name = someInput || 'Kyle'
+                        name equates to someInput if it's a string, ignoring 'Kyle'
+                        if someInput is an empty string, then that results in falsy
+                            OR operator will ALWAYS return the value after the OR operator ('Kyle') .. even if it's falsy
+                *Ex6/ tricks with the AND operator
+                    const name = isLoggedIn && 'Kyle'  
+                        if isLoggedIn is true/truthy
+                            AND operator will ALWAYS return the value after the AND operator ('Kyle') .. even if it's falsy
+                        if isLoggedIn is false/falsy
+                            name would equate to the value before the AND operator (isLoggedIn)
+                
+                *Convert truthy/falsy value to a real boolean true/false
+                    '!!' - double bang - ! negates, therefore !! negates the negation
+                        Ex/ !!1 - yields a real true value
+                        Ex/
+                            const userInput = '';  // yields undefined; user doesnt input anything
+                            const isValudInput = !!userInput
+                            isValudInput  // yields false; converts falsy value to an actual false boolean
+                                *note - a single '!' would also conver it to boolean but into true, which is the opposite of what's happening (we want to negate the negation)
 
-    *Equality for Objects and Arrays
+        If-statements dont return a value
+            'ternary' operator can help return a value
+                provides an inline if-statement without using an actual if-statement
+                Syntax:
+                    (condition) ? (value if condition is true/truthy) : (value if condition is false/falsy; else)
+                Ex/
+                    const userName = isLogin ? 'Max':null  
+    
+    'switch' statements great for equality checks
+        switch() takes an expression that yields a value
+            compares parameter with case value, using === behind the scenes
+        *if you have multiple conditions, and it's getting more complex, then just use an if-statement
+            switch is great for when you really only have 1 condition, and youre just checking for equality
+        Ex/
+            switch(eventt) {
+                case 'string':
+                    // if eventt === 'string' then any value here would yield
+                    break;  // built-in; if this case has been handled, then no other case should be handled
+                case 'string2':
+                    // value2
+                    break;
+                default:
+                    // value if no cases equate to eventt
+            }
+                
+
+    Equality for Objects and Arrays
         if we had 2 objects (or arrays) that contained the same values, and we then compared them using the ===/== operator, it would return a false
             person1 = {name: 'Kyle'}
             person2 = {name: 'Kyle'}
@@ -73,14 +128,84 @@ CONDITIONAL STATEMENTS
             person1.name == person2.name
                 true
 
-    *Operator precedence
+    Operator precedence
         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
 
 
-
-
 LOOPS
+    1. for loop
+        execute code a certain amount of times, using a counter variable (that increments/changes with every iteration)
+        for (let i=0; i<3; i++)
+        {
+            console.log(i);
+        }
+        *i variable can be re-used in other for loops
 
+    2. for-of loop
+        executes for every element in an array
+        for (const el of array)
+        {
+            console.log(el);
+        }
+        *el doesnt have to be a variable.  Behind the scenes, JS creates a brand new el constant with each iteration
 
+    3. for-in loop
+        executes for every key in an object
+        for (const key in obj)
+        {
+            console.log(key);
+            console.log(obj[key]);
+        }
+        *behind the scenes, JS creates a brand new constant with each iteration
+
+    4. while loop
+        executes code as long as a condition is true
+        let randomNumbers = [];
+        let finished = false;
+        while (!finished) {
+            const rndNumber = Math.random();
+            randomNumbers.push(rndNumber);
+            if (rndNumber > 0.5) {
+                finshed = true;
+                console.log(randomNumbers);
+            }
+        }
+    
+    *break - to break out of the loop after some execution, point in time
+        1/
+        for (let i = 0; i < 5; i++) {
+            console.log(i);
+        }
+        2/
+        for (let i = 0; i < 5; i++) {
+            if (i===3) {
+                break; //break loop if i equals 3
+            }
+            console.log(i);
+        }
+    *continue - breaks current iteration of loop but doesnt stop entire loop, it moves on to the next iteration
+        3/
+        for (let i = 0; i < 5; i++) {
+            if (i===3) {
+                continue; //break loop when i equals 3 but then continue onto next iteration
+            }
+            console.log(i);
+        }
 
 ERROR HANDLING
+    Some errors are unavoidable; beyond your control as a developer
+    Ex/
+        User input errors - e.g. user enters 'hi' instead of a number
+        Network errors - e.g. server is offline
+        ...
+    
+    Solution - fail more gracefully by including 'throw' or 'try-catch' errors
+        'throw' - error mgmt tool; can throw an error that is a number, string, object; script stops thereafter
+            throw {message: 'Invalid user input, not a number!'};  // typical example of throwing object error with a message property
+
+        Wrap 'try-catch' around code that might fail; around code that we cant control (e.g. user input)
+            try {  // code that could throw an error; if this code fails, then catch will execute
+            ...}    catch(error) { // known as the 'fallback' logic
+            ...} finally {  // 'finally' is optional; will ALWAYS execute its code
+                ...}
+                

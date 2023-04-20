@@ -16,6 +16,7 @@ SYNTAX, VARIABLES, DATA TYPES, FUNCTIONS
     
         *use constants as often as possible to be clear about your intent
         *we only need to declare our constants once
+        *when we truly have a global constant that wont change, it's a best practice to CAPITALIZE letters when initializing 
 
     - Naming convention
         best practice: camelCase

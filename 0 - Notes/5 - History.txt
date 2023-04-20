@@ -1,0 +1,128 @@
+
+ES5 vs ES6+ SYNTAX
+    ECMAScript
+        ECMAScript is the organization that works on iterations of these languages
+            they define standards
+        JS is a version of ECMAScript
+    ES5
+        introduced a more concrete standardization that browswers could agree on
+        supported in basically all browsers, including old versions of iterations
+        generally same syntax as ES6 but a lot of missing features
+            e.g. 
+                ES5 
+                    var - creates variable, created within the function and global scope
+                        you can also re-declare the same variable in code
+                        you can declare a variable without using 'var' keyword
+                ES6
+                    let - creates variable, created within Block scope
+                    const - creates constant, created within Block scope
+                        *Block scope - defined within {} (ie. if-statements, functions, etc.); e.g. globally, you cant access variables defined within Block scope
+    ES6 (and newer)
+        2015+
+        modern JS
+        *doesnt mean that all browsers have the latest version of ES6
+            browsers will slowly adopt the latest features
+            *older versions of browsers can technically use modern versions of JS .. well talk about this later
+        auto-updater within browsers
+        still under active development    
+
+
+HOW JAVASCRIPT WORKS
+    How code is parsed and compiled 
+        Browser
+            *using browser engine (e.g. Google Chrome - V8, Firefox - SpiderMonkey)
+            1. Interpreter - parses (imports HTML file, loads and reads script, then translates it to byte code) and then hands off code to compiler
+            2. Compiler (JiT) - translates JS code to machine code, then is handed off to computer to be executed
+                *JiT compilation - compiler starts compiling + executing code while code is being read and executed
+            *browsers also include APIs (built-in browser logic) that you can call within your JS code
+
+    How code gets executed within 'JS Engine'
+        Heap - longterm memory; memory allocation - stores data in system memory and manages access to it
+        Stack - short-term memory; execution context - manages program flow (function calls and communication)
+            Example: '3 - How code gets executed'
+                Heap - functions, defined within script file, are stored in Heap, within the browser
+                Stack: 
+                    Sequence of events:
+                        browser starts with this 'anonymous' code execution; script file pushed to Stack; browser basically wraps everything into this "anonymous function"
+                            great() function, that is called, is pushed to Stack
+                                getName() function, that is then called, is pushed to Stack
+                                    prompt() function, that is then called, is pushed to Stack
+                                        once prompt() is done executing (once the user enters a value for the prompt; returning a value), prompt() is removed from the Stack
+                                            *all data and resources tied to this execution is removed
+                                            *prompt() function definition is not removed from Heap
+                                            value is returned to getName(), therefore getName() is removed from Stack
+                                                great() is then evaluated, therefore great() is then removed from Stack
+                                                    everything is done so then 'anonymous' is removed from Stack
+                        *this can be seen here: Developer Tools > Sources > 'breakpoint' a line in code, refresh page, 'Step into next function' > Call Stack..
+        JS is 'single-threaded' - one thing happens at a time; therefore the Stack controls which thing is happening
+        Event Loop
+            *we'll dive into this later
+            but we saw that at the end of our execution, nothing remains within the Stack
+            however, there are cases, when we have buttons/eventListeners for example, where code still executes, even when the Stack is empty
+            how does this work?
+            Keep in mind that the 'JS Engine' Stack is empty .. the browser itself has other abilities. This is where we introduce the 'Event Loop'
+                when a button is clicked, the browser, using this Event Loop, will push this data to the script to be executed (without interupting current script)
+
+    Two categories of values in JS
+        1. Primitive Values
+                strings, numbers, booleans, null, undefined, symbol
+                stored in memory (normally in Stack); small amount of storage used
+                variables store the 'value' itself
+                    so copying a variable (assigning a new value to a variable), copies the 'value'
+                        let name = 'Kyle';
+                        name // outputs "Kyle"
+                        let anotherName = name;
+                        anotherName // outputs "Kyle"
+                        // change the value of name
+                        name = 'Emma';
+                        name // outputs "Emma"
+                        anotherName // still outputs "Kyle"
+        2. Reference Values
+                all other objects
+                stored in memory (Heap); occupies more memory; more expensive to create; holds more data
+                variable stores a reference to the object stored in memory
+                    a pointer (address) to location in memory, not the value itself
+                        *recall, with Primitive values, a variable stores the 'value' itself
+                    copying a variable (assigning a new value to a variable), copies the pointer/reference
+                        let hobbies = ['Sports'];
+                        let newHobbies = hobbies;
+                        hobbies // outputs ['Sports']
+                        newHobbies // outputs ['Sports']
+                        // add new object to array
+                        hobbies.push('Cooking');
+                        hobbies // outputs ['Sports', 'Cooking']
+                        newHobbies // outputs ['Sports', 'Cooking']  // even though we never touched newHobbies, it still references the change to hobbies
+                    *we can prevent this behaviour (of reference), by using the '...' 'spread' operator, that we will learn more about later on
+                        let person = {age: 30};
+                        let anotherPerson = person;
+                        anotherPerson.age = 32;
+                        person // outputs {age: 32}
+                        // use 'spread' operator to create variable that stores/copes all values from another variable; it does NOT reference
+                        let yetAnotherPerson = { ...person };
+                        yetAnotherPerson // outputs {age: 32}
+                        person.age = 12;
+                        yetAnotherPerson // still outputs {age: 32}
+                important point: variables/constants store a pointer/reference (address) for each object
+                    Ex/1
+                        const person1 = {age: 30};
+                        const person2 = {age: 30};
+                        person1 === person2 // outputs false
+                            // outputs false because weve created two variables that each point to/reference two distinct objects (regardless if they hold the same value or not)
+                            // outputs false because the address (pointer/reference) is different for both variables
+                    Ex/2
+                        const hobbies = ['Sports'];
+                        hobbies.push('Cooking');  
+                        // since hobbies is a const, can we add to the object array? Yes we can!  This push will work
+                        // variables/constants store an address for each object and this will NOT change .. the data in memory can change, but not the address
+                        // therefore we cannot change 'hobbies'; the following would fail
+                        hobbies = ['Sports', 'Running'];
+
+    Garbage collection - how is the Heap memory managed?
+        Browser engine's have a 'Garbage Collector'
+            it periodically checks the Heap for unused objects; objects without references
+            it then removes unused objects
+            it does this autmatically using it's own algorithm
+        Be aware of 'Memory Leaks'
+            unused objects that still hold references
+
+                      
