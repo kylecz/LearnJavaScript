@@ -12,27 +12,65 @@ INTRO
     functions can be called multiple times
 
 CREATING FUNCTIONS
-    Weve learned about objects (person) and adding properties to them {name: 'Kyle'}
-    But you can also have functions within objects; called a 'method'
-    We can then use the dot notation to access the object; to access properties or to access functions
-        const person = {
-            name: 'Kyle',
-            greet: function greet() {
-                console.log('Hello there!');
+    Methods
+        weve learned about objects (person) and adding properties to them {name: 'Kyle'}
+        but you can also have functions within objects; called a 'method'
+        we can then use the dot notation to access the object; to access properties or to access functions
+            const person = {
+                name: 'Kyle',
+                greet: function greet() {
+                    console.log('Hello there!');
+                }
             }
-        }
-        console.log(person.name); 
-        person.greet();  
-    Ex/
-        // addEventListener is a function provided by browser
-        // addEventListener is a method on the startGameBtn object
-        // startGameBtn is an object created by JS by calling the getElementById method, that exists on the document (that gives us access to our HTML page)
-        startGameBtn.addEventListener('click', startGame);
+            console.log(person.name); 
+            person.greet();  
+        Ex/
+            // addEventListener is a function provided by browser
+            // addEventListener is a method on the startGameBtn object
+            // startGameBtn is an object created by JS by calling the getElementById method, that exists on the document (that gives us access to our HTML page)
+            startGameBtn.addEventListener('click', startGame);
+    
+    Functions are technically Objects
+        functions have pre-configured properties (key:value pairs)
+            console.dir(startGame);  //'dir' shows the properties of our function
 
-
-
-ANONYMOUS FUNCTIONS
-
+    Storing Functions in variables - Function Declaration vs Function Expression
+        previously, we learned that a function can appear on the 'right-hand side' of an expression (greet: function..)
+            therefore, can functions be assigned to variables? Yes!
+            *note - that if we try to assign a variable to an 'if-statement', it wont work. Functions are more special
+        Function Declaration vs Function Expression
+            recall, that when the browser engine scans our script, it first captures all functions
+            functions 'declared' (a 'statement'; do not yield a value) will be captured; it is "hoisted" to the top so that they can be called anywhere in the file
+                Ex/ works
+                    start();
+                    function start() {
+                        console.log('Game is starting..');
+                    };
+            functions stored within a variable (an 'expression'; yields some value) will not be captured; it is hoisted to the top but NOT initialized/defined and it cant be called just anywhere in the file
+                Ex/ results in error
+                    start();
+                    const start = function() {
+                        console.log('Game is starting..');
+                    };
+        if we store a function in a variable, to actually call the function, we have to now call the variable, not the function
+        Ex/
+            const start = function startGame() {
+                console.log('Game is starting..');
+            }
+            startGameBtn.addEventListener('click', start);
+        by storing a function in a variable, we can now omit the function keyword (startGame); called an 'anonymous' function
+            *we must also add a semi-colon after the variable
+            Ex/
+                const start = function() {
+                    console.log('Game is starting..');
+                }
+        anonymous functions are great when we dont ever need the function elsewhere (e.g. with event listeners)
+            Ex/ the function doesnt need to be defined previously
+                startGameBtn.addEventListener('click', function() {
+                    console.log('Game is starting..');
+                });
+            *however, if there is an error, and we have not named the function, it will be harder to detect and fix the error
+                so even if we do what weve done above, still give the function a name (function startGame())
 
 
 
