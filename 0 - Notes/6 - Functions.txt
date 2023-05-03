@@ -11,8 +11,8 @@ INTRO
                 sayHi('Max');
     functions can be called multiple times
 
-CREATING FUNCTIONS
-    Methods
+
+Methods
         weve learned about objects (person) and adding properties to them {name: 'Kyle'}
         but you can also have functions within objects; called a 'method'
         we can then use the dot notation to access the object; to access properties or to access functions
@@ -30,11 +30,11 @@ CREATING FUNCTIONS
             // startGameBtn is an object created by JS by calling the getElementById method, that exists on the document (that gives us access to our HTML page)
             startGameBtn.addEventListener('click', startGame);
     
-    Functions are technically Objects
+Functions are technically Objects
         functions have pre-configured properties (key:value pairs)
             console.dir(startGame);  //'dir' shows the properties of our function
 
-    Storing Functions in variables - Function Declaration vs Function Expression
+Storing Functions in variables - Function Declaration vs Function Expression
         previously, we learned that a function can appear on the 'right-hand side' of an expression (greet: function..)
             therefore, can functions be assigned to variables? Yes!
             *note - that if we try to assign a variable to an 'if-statement', it wont work. Functions are more special
@@ -71,18 +71,185 @@ CREATING FUNCTIONS
                 });
             *however, if there is an error, and we have not named the function, it will be harder to detect and fix the error
                 so even if we do what weve done above, still give the function a name (function startGame())
+    
+Arrow Functions
+        *only works with function expressions, NOT function declarations
+        alternative syntax when writing function expressions (anonymous functions)
+        syntax:
+            (arg1, arg2) => {}  //for two arguments
+            () => {}  //for no arguments
+            arg => {}  //for one argument
+            (arg1, arg2) => arg1 + arg2  //omit curly braces and return keyword
+        advantage - less code   
+            Ex/
+                // two arguments
+                const add = (a, b) => {
+                    const result = a + b;
+                    return result; // like in "normal" functions, parameters and return statement are OPTIONAL!
+                };
+                // one argument
+                const log = message => {
+                    console.log(message); // could also return something of course - this example just doesn't
+                };
+                // no arguments
+                const greet = () => {
+                    console.log('Hi there!');
+                };
+                // one expression
+                const add = (a, b) => a + b;
+                
+Default Arguements
+        JS is a foregiving language
+            if we create a function that requires 2 arguments but we only pass 1, JS wont output an error, it will output 'undefined'
+                Ex/ const getWinner = (cChoice, pChoice) => {...}  //if player enters a random string, then the output will be undefined
+        Default Arugment - if an argument is undefined, then a Default Argument passes instead        
+                Ex/ const getWinner = (cChoice, pChoice = DEFAULT_USER_CHOICE) => {...}
+        *if an argument is falsy (null, or 0, or empty string), then the value will be kept!
+            ONLY when the argument is undefined, it will be replaced by the Default Argument
+
+Rest Operator
+    What if you want to create a function that can pass many arguments  
+        Ex/ 
+            const sumUp = (a, b, c, d) => {};
+                sumUp(1,2,4,-4,1,45,3);
+    Yes, you could use an array but you instead want the ability to pass many arguments
+        Ex/
+            const sumUp = (numbers) => {
+                let sum = 0;
+                for (const num of numbers) {
+                    sum += num;
+                }
+                return sum;
+            };
+            console.log(sumUp([43,21,2,-4,3,5,7]));
+    Rest Operator
+        takes all arguments (as many as you want) and merges them into an array (within the function) (without you actually creating an array)
+            Ex/
+                const sumUp = (...numbers) => {
+                    let sum = 0;
+                    for (const num of numbers) {
+                        sum += num;
+                    }
+                    return sum;
+                };
+                console.log(sumUp(43,21,2,-4,3,5,7));
+                console.log(sumUp(1,2,4,-4,1,45,3));
+        *must be the last argument in function definition
+
+Functions within Functions
+     since functions are simply objects, and weve seen objects in function before, yes we can have functions in functions
+        Ex/
+            const sumUp = (...numbers) => {
+                const validateNumber = (number) => {
+                    return isNaN(number) ? 0 : number;
+                };
+
+                let sum = 0;
+                for (const num of numbers) {
+                    sum += validateNumber(num);
+                }
+                return sum;
+            };
+            console.log(sumUp(43,"sdtf",2,-4,3,5,7));
+            console.log(sumUp(1,2,4,-4,1,45,3));
+    *ideally, we should be defining functions globally
+
+Callback Functions
+    Callback - function that is called after something else happens
+        the function running entirely depends on something else happening; not necessarily just running the program
+        achieved by passing a function into another function
+            function that we passed in is then called back (executed) after something else happens
+            this is a result of 'higher-order functions'
+    Ex/  setTimeout is a function that allows us to execute something after a certain length in time; after 3 seconds, execute this function (callback)
+        let logCall = function() {
+            console.log("logCall was called back!");
+        };
+        setTimeout(logCall, 3000);
+    Ex/ typically we would write it like this - where the function is defined where it's being passed (anonymous)
+        setTimeout(function() {
+            console.log("logCall was called back!");
+        }, 3000);
+
+    A very common example of callback functions is the use of event listeners
+        When an event occurs, the (callback) function is executed
+    Ex/ callbackFunction will execute when a "click" event takes place (a paramter part of the addEventListener function)
+        startGameBtn.addEventListener('click', callbackFunction()) {...}
+    
+    Ex/ 
+        // create function that adds numbers (and validates NaN numbers)
+        // include a parameter (resultHandler) that requires the passing of a function
+        const sumUp = (resultHandler, ...numbers) => {
+            const validateNumber = (number) => {
+                return isNaN(number) ? 0 : number;
+            };
+
+            let sum = 0;
+            for (const num of numbers) {
+                sum += validateNumber(num);
+            }
+            resultHandler(sum);
+        };
+        // create a function that sends an alert showing some result
+        const showResult = (result) => {
+            alert('The result after adding numbers is: ' + result);
+        };
+        // call sumUp function - pass the showResult function
+        sumUp(showResult, 43,"sdtf",2,-4,3,5,7);
+
+bind() method    
+    bind object to function 
+        then reference it using 'this' keyword
+    borrows a function and creates a copy
+        then 'this' keyword can be used to replaced the object passed in as an argument
+    Ex/
+        let c1 = {
+            x: 5, 
+            y: 10
+        };
+        let c2 = {
+            x: 75, 
+            y: 235
+        };
+        function printCoordinates() {
+            console.log(this.x + ', ' + this.y);
+        }
+
+        let c1_func = printCoordinates.bind(c1);
+        c1_func();
+
+        let c2_func = printCoordinates.bind(c2);
+        c2_func();
+    Ex/
+        let dog = {
+            name: "dog",
+            bark: function(){
+                console.log(this.name, "is barking");
+            }
+        }
+        let parrot = {
+            name: "parrot",
+            chirp: function(){
+                console.log(this.name, "is chirping");
+            }
+        }
+        let speak = dog.bark.bind(parrot)  //bind parrot object to function in bark. Then 'this' is replaced with parrot object (that was passed as argument)
+        speak()  //output: "parrot is barking"
+    Ex/
+        speak = function(sound){
+            console.log(this.name, "is", sound);
+        }
+        let dog = {
+            name: "dog",
+        }
+        let parrot = {
+            name: "parrot",
+        }
+        bark = speak.bind(dog,"barking");
+        chirp = speak.bind(parrot,"chirping");
+
+        bark();
+        chirp();
 
 
 
-CALLBACK FUNCTIONS & FUNCTIONS IN FUNCTIONS
-
-
-
-
-
-DEFAULT ARGUMENTS & REST OPERATOR
-
-
-
-
-bind() & MORE
+             

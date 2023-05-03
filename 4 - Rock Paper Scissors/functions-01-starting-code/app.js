@@ -18,12 +18,12 @@ const getPlayerChoice = function() {
         selection !== SCISSORS
         ) {
             alert(`Invalid choise!  We chose ${DEFAULT_USER_CHOICE} for you!`);
-            return DEFAULT_USER_CHOICE;
+            return;
     } 
     return selection;
 };
 
-const getComputerChoice = function() {
+const getComputerChoice = () => {
     const randomValue = Math.random();  //Math is a globally available object by JS
     if (randomValue < 0.34) {
         return ROCK;
@@ -34,7 +34,7 @@ const getComputerChoice = function() {
     }
 };
 
-const getWinner = function(cChoice, pChoice) {
+const getWinner = (cChoice, pChoice = DEFAULT_USER_CHOICE) => {  // if pChoice is undefined, then the default argument passes (DEFAULT_USER_CHOICE)
     if (cChoice === pChoice) {
         return RESULT_DRAW;
     } else if (
@@ -49,9 +49,6 @@ const getWinner = function(cChoice, pChoice) {
 };
 
 
-
-
-
 startGameBtn.addEventListener('click', function() {
     if(gameIsRunning) {  //so that the game doesnt start again
         return;
@@ -60,6 +57,45 @@ startGameBtn.addEventListener('click', function() {
     console.log('Game is starting..');
     const playerChoice = getPlayerChoice();
     const computerChoice = getComputerChoice(); 
-    const winner = getWinner(computerChoice, playerChoice);
-    console.log(winner);
+    let winner;
+    if (playerChoice) {
+        winner = getWinner(computerChoice, playerChoice);
+    } else {
+        winner = getWinner(computerChoice);  //we dont include playerChoice because we know itll be undefined
+        //winner = getWinner(computerChoice, playerChoice);  //this will work too actually. If playerChoice is undefined and passed to getWinner, the Default Argument replace it!
+    }
+        
+    let message;
+    if (winner === RESULT_DRAW) {
+        message = `You picked ${playerChoice || DEFAULT_USER_CHOICE}, computer picked ${computerChoice}, therefore DRAW!`;
+    } else if (winner === RESULT_PLAYER_WINS) {
+        message = `You picked ${playerChoice || DEFAULT_USER_CHOICE}, computer picked ${computerChoice}, therefore WON!`;
+    } else {
+        message = `You picked ${playerChoice || DEFAULT_USER_CHOICE}, computer picked ${computerChoice}, therefore LOST!`;
+    }
+    alert(message);
+    gameIsRunning = false;
 });
+
+
+
+
+// const sumUp = (resultHandler, ...numbers) => {
+//     const validateNumber = (number) => {
+//         return isNaN(number) ? 0 : number;
+//     };
+
+//     let sum = 0;
+//     for (const num of numbers) {
+//         sum += validateNumber(num);
+//     }
+//     resultHandler(sum);
+// };
+
+// const showResult = (result) => {
+//     alert('The result after adding numbers is: ' + result);
+// };
+
+// sumUp(showResult, 43,"sdtf",2,-4,3,5,7);
+
+
